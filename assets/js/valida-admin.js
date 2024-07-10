@@ -8,12 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = event.target.password.value;
         
         // Verifica se o email e a senha são válidos
-        if (email === 'edmilsonsimao@gmail.com' && password === '123456') {
+        if (email === 'eduardopaxe@gmail.com' && password === '000000') {
             window.location.href = 'admin-dashboard.html'; // Redireciona para a página agent-dashboard.html
-        } else if (email === 'eduardovianga@gmail.com' && password === '101010'){
+        } else if (email === 'mateus@gmail.com' && password === '111111'){
             window.location.href = 'agent-dashboard.html'; // Mostra uma mensagem de erro
         } 
-        else if  (email === 'franciscomuanza2@gmail.com' && password === '111111') {
+        else if  (email === 'franciscomuanza2@gmail.com' && password === '222222') {
             window.location.href = 'account-profile.html'; // Redireciona para a página agent-dashboard.html
         } else{
             alert('Email ou senha incorretos. '); // Mostra uma mensagem de erro
