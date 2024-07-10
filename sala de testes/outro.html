@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Reserva</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.875em;
+            margin-top: 0.25em;
+        }
+    </style>
+</head>
+<body>
+    <form id="reservationForm" class="row g-4" onsubmit="return validateForm(event)">
+        <!-- Title -->
+        <div class="col-12">
+            <div class="bg-light rounded-2 px-4 py-3">
+                <h6 class="mb-0">Main Guest</h6>
+            </div>
+        </div>
+
+        <!-- Select -->
+        <div class="col-md-2">
+            <div class="form-size-lg">
+                <label class="form-label">Título</label>
+                <select id="title" name="title" class="form-select js-choice">
+                    <option value="">Selecione</option>
+                    <option>Senhor</option>
+                    <option>Senhora</option>
+                </select>
+                <div class="error-message" id="titleError"></div>
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-5">
+            <label class="form-label">Primeiro Nome</label>
+            <input type="text" id="firstName" name="first_name" class="form-control form-control-lg" placeholder="Enter your name">
+            <div class="error-message" id="firstNameError"></div>
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-5">
+            <label class="form-label">Last Name</label>
+            <input type="text" id="lastName" name="last_name" class="form-control form-control-lg" placeholder="Enter your name">
+            <div class="error-message" id="lastNameError"></div>
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-6">
+            <label class="form-label">Email id</label>
+            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Digite o seu email">
+            <div class="error-message" id="emailError"></div>
+            <div id="emailHelp" class="form-text">(Booking voucher will be sent to this email ID)</div>
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-6">
+            <label class="form-label">Número</label>
+            <input type="text" id="mobileNumber" name="mobile_number" class="form-control form-control-lg" placeholder="Digite o seu número telefônico">
+            <div class="error-message" id="mobileNumberError"></div>
+        </div>
+
+        <!-- New Fields -->
+        <!-- Location -->
+        <div class="col-md-6">
+            <label class="form-label">Localização</label>
+            <input type="text" id="location" name="location" class="form-control form-control-lg" placeholder="Digite a localização">
+            <div class="error-message" id="locationError"></div>
+        </div>
+
+        <!-- Check-in and Check-out -->
+        <div class="row">
+            <!-- Check-in Date -->
+            <div class="col-md-6">
+                <label class="form-label">Data de Check-in</label>
+                <input type="text" id="checkInDate" name="check_in_date" class="form-control form-control-lg" placeholder="Selecione a data de check-in">
+                <div class="error-message" id="checkInDateError"></div>
+            </div>
+
+            <!-- Check-out Date -->
+            <div class="col-md-6">
+                <label class="form-label">Data de Check-out</label>
+                <input type="text" id="checkOutDate" name="check_out_date" class="form-control form-control-lg" placeholder="Selecione a data de check-out">
+                <div class="error-message" id="checkOutDateError"></div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <!-- Number of Adults -->
+            <div class="col-md-4">
+                <label class="form-label">Número de Adultos</label>
+                <input type="number" id="numAdults" name="num_adults" class="form-control form-control-lg" placeholder="Digite o número de adultos" min="0">
+                <div class="error-message" id="numAdultsError"></div>
+            </div>
+
+            <!-- Number of Children -->
+            <div class="col-md-4">
+                <label class="form-label">Número de Crianças</label>
+                <input type="number" id="numChildren" name="num_children" class="form-control form-control-lg" placeholder="Digite o número de crianças" min="0">
+                <div class="error-message" id="numChildrenError"></div>
+            </div>
+
+            <!-- Number of Rooms -->
+            <div class="col-md-4">
+                <label class="form-label">Número de Quartos</label>
+                <input type="number" id="numRooms" name="num_rooms" class="form-control form-control-lg" placeholder="Digite o número de quartos" min="0">
+                <div class="error-message" id="numRoomsError"></div>
+            </div>
+        </div>
+
+        <input type="hidden" id="combinedDetails" name="combined_details">
+        <!-- Button -->
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Comprovativo de Reserva - Hotel Alvalade</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="reservationDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            let isValid = true;
+    
+            const fields = [
+                { id: 'title', errorId: 'titleError', message: 'Por favor, selecione um título.' },
+                { id: 'firstName', errorId: 'firstNameError', message: 'Por favor, insira o primeiro nome.' },
+                { id: 'lastName', errorId: 'lastNameError', message: 'Por favor, insira o sobrenome.' },
+                { id: 'email', errorId: 'emailError', message: 'Por favor, insira um endereço de email válido.', pattern: /^[^ ]+@[^ ]+\.[a-z]{2,6}$/ },
+                { id: 'mobileNumber', errorId: 'mobileNumberError', message: 'Por favor, insira um número de telefone válido.', pattern: /^[0-9]{10,15}$/ },
+                { id: 'location', errorId: 'locationError', message: 'Por favor, insira a localização.' },
+                { id: 'checkInDate', errorId: 'checkInDateError', message: 'Por favor, selecione a data de check-in.' },
+                { id: 'checkOutDate', errorId: 'checkOutDateError', message: 'Por favor, selecione a data de check-out.' },
+                { id: 'numAdults', errorId: 'numAdultsError', message: 'Por favor, insira um número válido de adultos.', min: 1 },
+                { id: 'numChildren', errorId: 'numChildrenError', message: 'Por favor, insira um número válido de crianças.', min: 0 },
+                { id: 'numRooms', errorId: 'numRoomsError', message: 'Por favor, insira um número válido de quartos.', min: 1 }
+            ];
+    
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const errorDiv = document.getElementById(field.errorId);
+                let value = input.value.trim();
+                let isFieldValid = true;
+    
+                if (field.pattern && !field.pattern.test(value)) {
+                    isFieldValid = false;
+                } else if (field.min !== undefined && (isNaN(value) || value < field.min)) {
+                    isFieldValid = false;
+                } else if (!value) {
+                    isFieldValid = false;
+                }
+    
+                if (!isFieldValid) {
+                    errorDiv.textContent = field.message;
+                    isValid = false;
+                } else {
+                    errorDiv.textContent = '';
+                }
+            });
+    
+            if (isValid) {
+                // Preenche e exibe o modal de sucesso
+                fillAndShowModal();
+            }
+    
+            return isValid;
+        }
+    
+        function fillAndShowModal() {
+            const title = document.getElementById('title').value;
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            const location = document.getElementById('location').value;
+            const checkInDate = document.getElementById('checkInDate').value;
+            const checkOutDate = document.getElementById('checkOutDate').value;
+            const numAdults = document.getElementById('numAdults').value;
+            const numChildren = document.getElementById('numChildren').value;
+            const numRooms = document.getElementById('numRooms').value;
+    
+            const reservationDetails = `
+                <strong>Título:</strong> ${title}<br>
+                <strong>Nome:</strong> ${firstName}<br>
+                <strong>Sobrenome:</strong> ${lastName}<br>
+                <strong>Email:</strong> ${email}<br>
+                <strong>Número de telefone:</strong> ${mobileNumber}<br>
+                <strong>Localização:</strong> ${location}<br>
+                <strong>Data de Check-in:</strong> ${checkInDate}<br>
+                <strong>Data de Check-out:</strong> ${checkOutDate}<br>
+                <strong>Número de Adultos:</strong> ${numAdults}<br>
+                <strong>Número de Crianças:</strong> ${numChildren}<br>
+                <strong>Número de Quartos:</strong> ${numRooms}
+            `;
+    
+            document.getElementById('reservationDetails').innerHTML = reservationDetails;
+            $('#successModal').modal('show');
+        }
+    </script>
+    

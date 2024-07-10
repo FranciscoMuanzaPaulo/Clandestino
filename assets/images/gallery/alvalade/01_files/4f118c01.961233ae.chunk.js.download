@@ -1,0 +1,2 @@
+"use strict";(self["b-property-web-property-page__LOADABLE_LOADED_CHUNKS__"]=self["b-property-web-property-page__LOADABLE_LOADED_CHUNKS__"]||[]).push([["4f118c01"],{22886852:function(e,t,r){r.r(t),r.d(t,{CXSurveyPP:function(){return o}});var n=r("ead71eb0"),s=r.n(n),p=r("f59714b8"),u=r.n(p),_=r("700a074f");const o=()=>{const e=(0,n.useContext)(_.UseSuspenseContext);return s().createElement(u(),{useSuspense:e})};t.default=o}}]);
+//# sourceMappingURL=https://istatic.booking.com/internal-static/capla/static/js/4f118c01.961233ae.chunk.js.map

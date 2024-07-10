@@ -1,0 +1,2 @@
+"use strict";(self["b-property-web-property-page__LOADABLE_LOADED_CHUNKS__"]=self["b-property-web-property-page__LOADABLE_LOADED_CHUNKS__"]||[]).push([["a258f37d"],{ca6a3704:function(e,r,t){t.r(r);var _=t("dee2534d"),a=t("c44dcb0c"),p=t("ead71eb0"),n=t.n(p);r.default=()=>{const{trans:e}=(0,a.useI18n)();return n().createElement(_.Text,{variant:"strong_1"},e((0,a.t)("ge_hp_benefits_header")))}}}]);
+//# sourceMappingURL=https://istatic.booking.com/internal-static/capla/static/js/a258f37d.cb5ae1fc.chunk.js.map

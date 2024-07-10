@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Reserva</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <form id="reservationForm" class="row g-4">
+        <!-- Title -->
+        <div class="col-12">
+            <div class="bg-light rounded-2 px-4 py-3">
+                <h6 class="mb-0">Main Guest</h6>
+            </div>
+        </div>
+
+        <!-- Select -->
+        <div class="col-md-2">
+            <div class="form-size-lg">
+                <label class="form-label">Título</label>
+                <select id="title" name="title" class="form-select">
+                    <option value="Senhor">Senhor</option>
+                    <option value="Senhora">Senhora</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-5">
+            <label class="form-label">Primeiro Nome</label>
+            <input type="text" id="firstName" name="first_name" class="form-control form-control-lg" placeholder="Digite seu nome">
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-5">
+            <label class="form-label">Último Nome</label>
+            <input type="text" id="lastName" name="last_name" class="form-control form-control-lg" placeholder="Digite seu sobrenome">
+        </div>
+
+        <!-- Button -->
+        <div class="col-12">
+            <a href="#" class="btn btn-link mb-0 p-0"><i class="fa-solid fa-plus me-2"></i>Adicionar Novo Convidado</a>
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Digite seu email">
+            <div id="emailHelp" class="form-text">(O voucher de reserva será enviado para este email)</div>
+        </div>
+
+        <!-- Input -->
+        <div class="col-md-6">
+            <label class="form-label">Número de Telefone</label>
+            <input type="text" id="mobileNumber" name="mobile_number" class="form-control form-control-lg" placeholder="Digite seu número de telefone">
+        </div>
+
+        <!-- Location -->
+        <div class="col-md-6">
+            <label class="form-label">Localização</label>
+            <input type="text" id="location" name="location" class="form-control form-control-lg" placeholder="Digite a localização">
+        </div>
+
+        <!-- Check-in and Check-out -->
+        <div class="row">
+            <!-- Check-in Date -->
+            <div class="col-md-6">
+                <label class="form-label">Data de Check-in</label>
+                <input type="text" id="checkInDate" name="check_in_date" class="form-control form-control-lg" placeholder="Selecione a data de check-in">
+            </div>
+            
+            <!-- Check-out Date -->
+            <div class="col-md-6">
+                <label class="form-label">Data de Check-out</label>
+                <input type="text" id="checkOutDate" name="check_out_date" class="form-control form-control-lg" placeholder="Selecione a data de check-out">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <!-- Number of Adults -->
+            <div class="col-md-4">
+                <label class="form-label">Número de Adultos</label>
+                <input type="number" id="numAdults" name="num_adults" class="form-control form-control-lg" placeholder="Digite o número de adultos" min="0">
+            </div>
+
+            <!-- Number of Children -->
+            <div class="col-md-4">
+                <label class="form-label">Número de Crianças</label>
+                <input type="number" id="numChildren" name="num_children" class="form-control form-control-lg" placeholder="Digite o número de crianças" min="0">
+            </div>
+
+            <!-- Number of Rooms -->
+            <div class="col-md-4">
+                <label class="form-label">Número de Quartos</label>
+                <input type="number" id="numRooms" name="num_rooms" class="form-control form-control-lg" placeholder="Digite o número de quartos" min="0">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("reservationForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita que o formulário seja enviado normalmente
+
+            // Crie um objeto com os dados do formulário
+            var formData = {
+                title: document.getElementById("title").value,
+                first_name: document.getElementById("firstName").value,
+                last_name: document.getElementById("lastName").value,
+                email: document.getElementById("email").value,
+                mobile_number: document.getElementById("mobileNumber").value,
+                location: document.getElementById("location").value,
+                check_in_date: document.getElementById("checkInDate").value,
+                check_out_date: document.getElementById("checkOutDate").value,
+                num_adults: document.getElementById("numAdults").value,
+                num_children: document.getElementById("numChildren").value,
+                num_rooms: document.getElementById("numRooms").value
+            };
+
+            // Enviar a solicitação POST
+            fetch('http://localhost:8081/reserva', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Redirecionar ou fazer outra coisa com a resposta, se necessário
+                // Por exemplo, redirecionar para uma página de confirmação
+                window.location.href = "booking-confirm.html";
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Lide com o erro aqui, se necessário
+            });
+        });
+    </script>
+</body>
+</html>

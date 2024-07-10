@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    padding: 100px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 10px;
+    padding: 20px;
+}
+
+.apart {
+    background-color: white;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.map {
+    width: 100%;
+    height: 90vh; /* Altura total da tela */
+    position: sticky;
+    top: 0;
+}
+
+.apartamentos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    padding: 10px;
+    background-color: rgba(221, 223, 223, 0.397);
+}
+
+.apartamentos div img {
+    width: 100%;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+.apartamentos div img:hover {
+    opacity: 0.5;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+span {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(43, 170, 96);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.noite {
+    color: rgba(0, 0, 0, 0.604);
+    font-size: 15px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ul{
+    margin-left: -40px;
+}
+
+ul li {
+    color: rgba(0, 0, 0, 0.604);
+    font-size: 15px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline; /* Exibe os itens em linha */
+    margin-right: 10px; /* Espaço entre os itens */
+}

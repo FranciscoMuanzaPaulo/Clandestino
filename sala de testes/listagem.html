@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <button id="printButton" class="btn btn-primary mb-3">Imprimir Tabela</button>
+        <div class="table-responsive border-0">
+            <table class="table align-middle p-4 mb-0 table-hover table-shrink">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="border-0 rounded-start">#</th>
+                        <th scope="col" class="border-0">Título</th>
+                        <th scope="col" class="border-0">Primeiro Nome</th>
+                        <th scope="col" class="border-0">Último Nome</th>
+                        <th scope="col" class="border-0">Email</th>
+                        <th scope="col" class="border-0">Número</th>
+                        <th scope="col" class="border-0">Localização</th>
+                        <th scope="col" class="border-0">Data Check-in</th>
+                        <th scope="col" class="border-0">Data Check-out</th>
+                        <th scope="col" class="border-0">Nº Adultos</th>
+                        <th scope="col" class="border-0">Nº Crianças</th>
+                        <th scope="col" class="border-0">Nº Quartos</th>
+                        <th scope="col" class="border-0 rounded-end">Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="reservationTableBody" class="border-top-0">
+                    <!-- As linhas da tabela serão inseridas aqui pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <div class="ms-3">
+            <h4 id="totalReservations">0</h4>
+            <span>Total de Reservas</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://localhost:8081/reserva')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('reservationTableBody');
+                    const totalReservations = document.getElementById('totalReservations');
+                    totalReservations.textContent = data.length;
+
+                    data.forEach((reservation, index) => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td><h6 class="mb-0">${index + 1}</h6></td>
+                            <td><h6 class="mb-0"><a href="#">${reservation.titulo}</a></h6></td>
+                            <td>${reservation.first_name}</td>
+                            <td>${reservation.last_name}</td>
+                            <td>${reservation.email}</td>
+                            <td>${reservation.numero}</td>
+                            <td>${reservation.localizacao}</td>
+                            <td>${reservation.data_check_in}</td>
+                            <td>${reservation.data_check_out}</td>
+                            <td>${reservation.n_adultos}</td>
+                            <td>${reservation.n_criancas}</td>
+                            <td>${reservation.n_quartos}</td>
+                            <td><a href="#" class="btn btn-sm btn-light mb-0">View</a></td>
+                        `;
+
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar dados:', error);
+                });
+        });
+
+        document.getElementById('printButton').addEventListener('click', function() {
+            if (confirm('Deseja imprimir o relatório de reservas?')) {
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>
